@@ -1,0 +1,16 @@
+body{
+  font-size: 10px;
+}
+.paragraph {
+  width: 500px;
+  height: 500px;
+  background-color: #6936b5;
+  font-weight: bold;
+  font-size: 50px;
+  font-style: italic;
+  font-family: sans-serif;
+  /* width: 10em; == font-size의 10배 = 500px*/
+  /* width: 10rem; == 최` 상위 font-size의 10배 = 100px */
+  /* width: 50vw; == view width 화면크기 의 50% = 절반*/
+  /* %와 vw vh 차이 = % = 부모 태그크기의 % vw vh = 화면의 % */
+}
