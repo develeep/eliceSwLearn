@@ -1,0 +1,1 @@
+document.write('\"It\'s all right.\"')
