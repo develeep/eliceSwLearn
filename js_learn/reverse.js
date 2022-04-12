@@ -6,3 +6,4 @@ function reverse(str){
   return reverStr;
 
 }
+document.write("abs"*3);
