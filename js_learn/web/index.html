@@ -9,27 +9,43 @@
   
 </head>
 <body>
+  <script>
+    function night(){
+      document.querySelector('body').style.backgroundColor = 'black';
+      document.querySelector('body').style.color = 'white';
+      let as = document.querySelectorAll('a');
+      for(let i = 0;i<as.length;i++){
+        as[i].style.color = 'white';
+      }
+    }
+    function day(){
+      document.querySelector('body').style.backgroundColor = 'white';
+      document.querySelector('body').style.color = 'black';
+      let as = document.querySelectorAll('a');
+      for(let i = 0;i<as.length;i++){
+        as[i].style.color = 'black';
+      }
+    }
+    function dayNight(time){
+      if(time === "night"){
+        night();
+      }
+      else if(time === "day"){
+        day();
+      }
+    }
+  </script>
   <input type="button" value="night" 
     onclick="
     // 만약 이 버튼의 value 값이 night라면 아래 코드 실행
       if(this.value === 'night'){
-        document.querySelector('body').style.backgroundColor = 'black';
-        document.querySelector('body').style.color = 'white';
+        dayNight('night');
         this.value = 'day';
-        let as = document.querySelectorAll('a');
-        for(let i = 0;i<as.length;i++){
-          as[i].style.color = 'white';
-        }
       }
       // 아니면 아래 코드 실행
       else{
-        document.querySelector('body').style.backgroundColor = 'white';
-        document.querySelector('body').style.color = 'black';
         this.value = 'night';
-        let as = document.querySelectorAll('a');
-        for(let i = 0;i<as.length;i++){
-          as[i].style.color = 'black';
-        }
+        dayNight('day');
       }
     "
     >
