@@ -23,16 +23,26 @@
     <li>20</li>
     <li>30</li>
   </ul>
+  <ul class="list"></ul>
   <script>
     let contents = ['html','css','js'];
     let members = ['lee','seung','hoon'];
     let scores = [10,20,30];
 
-    console.log(contents[2]);
-    console.log(contents.length);
-    console.log(contents);
-    contents.push('react');
-    console.log(contents);
+    for(let i = 0;i<contents.length;i++){
+      //document.write(`<li>${contents[i]}</li>`)
+      document.querySelector('.list').innerHTML + `<li>%{contents[i]}</li>`
+    }
+  </script>
+
+  <h1>loop</h1>
+  <script>
+    // debugger;
+    console.log(1);
+    for(let i =0 ; i<3;i++){
+      console.log(2);
+      console.log(3);
+    }
   </script>
 </body>
 </html>
