@@ -7,26 +7,52 @@
   <title>Document</title>
 </head>
 <body>
-  <h1><a href="index.html">WEB</a></h1>
+  <h1><a href="index.html" onclick="
+      event.preventDefault();
+      document.querySelector('article').innerHTML = '<h2>Welcom</h2>Hello, WEB'
+    ">WEB</a></h1>
   <ol id="ola">
-    <li><a href="1.html">html</a></li>
+    <li><a id = "html" href="1.html">html</a></li>
     <li><a href="2.html">css</a></li>
     <li><a href="3.html">javascript</a></li>
   </ol>
-  <h2>Welcome</h2>
-  Hello, WEB
+  <article>
+    <h2>Welcome</h2>
+    Hello, WEB
+  </article>
   <script>
+    let li = [
+    {id:1,title:'html',body:'html is ...'},
+    {id:2,title:'css',body:'css is ...'},
+    {id:3,title:'js',body:'js is ...'}
+    ];
     function nav(){
-      let li = [
-      {id:1,title:'html',body:'html is ...'},
-      {id:2,title:'css',body:'css is ...'},
-      ];
       for(let i = 0;i<li.length;i++){
         let ol = document.querySelector('#ola');
-        ol.innerHTML += `<li><a href="/read/${li[i].id}">title : ${li[i].title}</a> <br> body : ${li[i].body} </li>`
+        ol.innerHTML += `
+          <li>
+            <a href="/read/${li[i].id}" id= "${li[i].id}" onclick="
+              event.preventDefault();
+              for(let i = 0;i<li.length; i++){
+                if(li[i].id === parseInt(event.target.id)){
+                  document.querySelector('article').innerHTML = '<h2>${li[i].title}</h2>${li[i].body}';
+                  break;
+                }
+
+              }   
+            ">
+              title : ${li[i].title} <br> body : ${li[i].body} 
+            </a>
+          </li>`
       }
     }
     nav();
+    //let join = ['010','7376','8266'];
+    //join.join('-')
+    // => '010-7376-8266'
+    /*li.map(function(e){return `<li>${e}</li>`});
+    li.map((e)=>{return `<li>${e}</li>`});
+    li.map(e=>`<li>${e}</li>`);*/
   </script>
 </body>
 </html>
