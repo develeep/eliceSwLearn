@@ -1,9 +1,8 @@
-
 * {
   margin: 0;
   padding: 0;
 }
-a{
+a {
   text-decoration: none;
   color: black;
 }
@@ -21,5 +20,4 @@ h1 {
     border-right: 10px solid pink;
     margin-right: 10px;
   }
-  
 }

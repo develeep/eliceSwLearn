@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- module은 웹페이지의 모든 랜더링과 로딩이 끝난 후 실행됨 -->
   <script type="module">
     import {dayNight} from './dayNight.js';
     console.log(dayNight)
@@ -17,8 +18,7 @@
       }
       else if(time === 'day'){
         evt.target.value = 'night';
-      }
-    }
+      } 
     document.querySelector('#btn').addEventListener('click',listener)
 
   </script>

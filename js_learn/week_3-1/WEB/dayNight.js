@@ -23,4 +23,4 @@ export function dayNight(time){
   else if(time === "day"){
     day();
   }
-}
+} 
