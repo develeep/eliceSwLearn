@@ -9,6 +9,9 @@
   <title>WEB - Welcome</title>
 </head>
 <body>
+  <div id="target">toggle</div>
+  <input type="button" value="hide/show" onclick="$('#target').toggle();
+  ">
   <script>
     function night(){
       // document.querySelector('body').style.backgroundColor = 'black';
@@ -20,7 +23,7 @@
       // jQuery
       $('body').css('background-color','black');
       $('body').css('color','white');
-      $('a').css('color','black')
+      $('a').css('color','white')
     }
     function day(){
       // document.querySelector('body').style.backgroundColor = 'white';
