@@ -1,0 +1,25 @@
+
+* {
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+h1 {
+  border-bottom: 10px solid green;
+  padding-bottom: 30px;
+}
+
+@media all and (min-width: 480px) {
+  #conteiner {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+  }
+  ol {
+    border-right: 10px solid pink;
+    margin-right: 10px;
+  }
+  
+}
