@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <title>WEB - Welcome</title>
+</head>
+<body>
+  <script>
+    function night(){
+      // document.querySelector('body').style.backgroundColor = 'black';
+      // document.querySelector('body').style.color = 'white';
+      /*let as = document.querySelectorAll('a');
+      for(let i = 0;i<as.length;i++){
+        as[i].style.color = 'white';
+      }*/
+      // jQuery
+      $('body').css('background-color','black');
+      $('body').css('color','white');
+      $('a').css('color','black')
+    }
+    function day(){
+      // document.querySelector('body').style.backgroundColor = 'white';
+      //document.querySelector('body').style.color = 'black';
+      /*let as = document.querySelectorAll('a');
+      for(let i = 0;i<as.length;i++){
+        as[i].style.color = 'black';
+      }*/
+      // jQuery
+      $('body').css('background-color','white');
+      $('body').css('color','black');
+      $('a').css('color','black')
+    }
+    function dayNight(time){
+      if(time === "night"){
+        night();
+      }
+      else if(time === "day"){
+        day();
+      }
+    }
+  </script>
+  <input type="button" value="night" 
+    onclick="
+    // 만약 이 버튼의 value 값이 night라면 아래 코드 실행
+      if(this.value === 'night'){
+        dayNight('night');
+        this.value = 'day';
+      }
+      // 아니면 아래 코드 실행
+      else{
+        this.value = 'night';
+        dayNight('day');
+      }
+    "
+    >
+  <!-- <input type="button" value="night" 
+    onclick=
+      "document.querySelector('body').style.backgroundColor = 'black';
+      document.querySelector('body').style.color = 'white';
+    "
+    onmouseleave="alert('안녕히가세요')"
+    >
+  <input type="button" value="dat"
+    onclick="
+      document.querySelector('body').style.backgroundColor = 'white';
+      document.querySelector('body').style.color = 'black';
+    "> -->
+  <h1><a href="index.html">WEB</a></h1>
+  <div id="conteiner">
+    <ol>
+      <li><a href="1.html">html</a></li>
+      <li><a href="2.html">css</a></li>
+      <li><a href="3.html">javascript</a>'</li>
+    </ol>
+    <div>
+      <h2>Welcome</h2>
+      Hello,WeB!!
+    </div>
+  </div>
+</body>
+</html>
+
+
