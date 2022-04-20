@@ -1,7 +1,7 @@
 <html>
     <body>
         <header>
-            <h1><a href="/">WEB</a></h1>
+            <h1><a href="#" onclick="welcome()">WEB</a></h1>
         </header>
         <nav>
             <ol>
@@ -44,7 +44,9 @@
               </li>`).join('')
             document.querySelector('nav ol').innerHTML = tag
           }
-          function welcome(){}
+          function welcome(){
+            document.querySelector('article').innerHTML = '<h2>Welcome<h2>Hello,WEB';
+          }
           function read(){
             const topic = topics.filter(e=>e.id === selectedId)[0]
             const content = `
@@ -58,6 +60,7 @@
           function del(){}
           function control(){}
           nav();
+          welcome();
         </script>
     </body>
 </html>
