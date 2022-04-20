@@ -4,7 +4,7 @@
             <h1><a href="#" onclick="welcome()">WEB</a></h1>
         </header>
         <nav>
-            <ol>
+            <ol >
                 <!-- 
                     <li><a href="/read/1">html</a></li>
                     <li><a href="/read/2">css</a></li> 
@@ -46,6 +46,8 @@
           }
           function welcome(){
             document.querySelector('article').innerHTML = '<h2>Welcome<h2>Hello,WEB';
+            selectedId=null
+            control()
           }
           function read(){
             const topic = topics.filter(e=>e.id === selectedId)[0]
@@ -54,13 +56,27 @@
               ${topic.body}
               `
             document.querySelector('article').innerHTML = content
+            control()
           }
           function create(){}
           function update(){}
           function del(){}
-          function control(){}
+          function control(){
+            let contextUI = ''
+            if(selectedId !== null){
+              contextUI = `
+                <li><a href="/update">Update</a></li> 
+                <li><a href="/delete">Delete</a></li>
+              `
+            }
+            document.querySelector('#control').innerHTML = `
+              <li><a href="/create">Create</a></li>
+              ${contextUI}
+            `
+          }
           nav();
           welcome();
+          control();
         </script>
     </body>
 </html>
