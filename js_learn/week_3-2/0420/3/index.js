@@ -15,7 +15,7 @@ function sumArray(sum, ...arr) {
 
     const [head, ...tail] = arr;
 
-    return mul(result*head,...tail);
+    return mul(result*head,...tail); //재귀함수
   }
   
   console.log(mul(3, 6, 9, 12, 15));
