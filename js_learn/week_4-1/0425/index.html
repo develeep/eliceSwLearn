@@ -133,17 +133,26 @@
                 console.log(selectedId)
                 console.log(topic);
                 nav();
-                selectedId = data.id;
+                selectedId = topic.id;
                 read();
               })
           }
-            function del(){}
+            function del(){
+              console.log(selectedId)
+              fetch('http://localhost:3000/topics/'+selectedId,{
+                method:'DELETE',
+              }).then(response=>response.json())
+              .then(()=>{
+                nav();
+                welcome();
+              })
+            }
             function control(){
                 let contextUI = ''
                 if(selectedId !== null){
                     contextUI = `
                         <li><a href="/update" onclick="event.preventDefault();update()">Update</a></li>
-                        <li><a href="/delete" onclick="event.preventDefault();delete()">Delete</a></li> 
+                        <li><a href="/delete" onclick="event.preventDefault();del()">Delete</a></li> 
                     `;
                 }
                 document.querySelector('#control').innerHTML = `
