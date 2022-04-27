@@ -17,9 +17,10 @@ async function exercise(startTime, name) {
   const finish = parseInt(exerciseInput.value)
   // 2. setTimeout 대신 delay 함수를 사용해 비동기처리를 하세요.
   await delay(finish)
-  mes.innerText += `${name} finished at ${finish}`
+  const result = startTime + finish
+  mes.innerText += `${name} finished at ${result}`
   // 3. 완주한 후의 시간을 반환하세요.
-  return startTime + finish;
+  return result;
 }
 
 btn.addEventListener("click", () => {
