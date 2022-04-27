@@ -13,12 +13,15 @@ function timerP(time){
   });
 }
 
-async function timerP(time){
+function timerP(time){
   return new Promise(function(resolve){
       setTimeout(function(){
           resolve(time);
       }, time);
   });
 }
-const t = await timerP(1000); 
-console.log(t);
+async function timePrint(){
+  const t = await timerP(1000); 
+  console.log(t);
+}
+timePrint();
