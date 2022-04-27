@@ -1,0 +1,61 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "topics": [
+    {
+      "id": 1,
+      "title": "html",
+      "body": "html is ..."
+    },
+    {
+      "id": 2,
+      "title": "css",
+      "body": "css is ..."
+    },
+    {
+      "id": 3,
+      "title": "json",
+      "body": "json is ..."
+    },
+    {
+      "title": "nodejs",
+      "body": "nodejs is ... wow",
+      "id": 4
+    },
+    {
+      "title": "asdf",
+      "body": "asdf",
+      "id": 5
+    },
+    {
+      "title": "7",
+      "body": "7",
+      "id": 7
+    },
+    {
+      "title": "8",
+      "body": "8",
+      "id": 8
+    },
+    {
+      "title": "9",
+      "body": "9",
+      "id": 9
+    }
+  ]
+}
