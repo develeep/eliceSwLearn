@@ -22,41 +22,44 @@ function CoffeeMaker(initialBeans, maxMachine, onUpdate) {
   }
 
   async function grindBean() {
-    handleUpdate("grindBean");
-    await API.grindBean();
-    return closure;
+    handleUpdate("grindBean")
+    await API.grindBean()
+    return closure
   }
 
   async function brewPowder() {
-    if (state.beanPowder < BEANS_PER_BREW) {
-      return Promise.reject(new Error("커피 가루가 부족합니다."));
+    if(state.beanPowder < BEANS_PER_BREW){
+        return Promise.reject(new Error("커피 가루가 부족합니다."))
     }
-
-    handleUpdate("brewPowder");
-    await API.brewPowder();
-    return closure;
+    handleUpdate("brewPowder")
+    await API.brewPowder()
+    return closure
   }
 
   async function prepareMachine() {
     if (state.currentMachine === 0) {
+
       return Promise.reject(new Error("남은 머신이 없습니다."));
     }
 
     if (state.beans === 0) {
-      return Promise.reject(new Error("커피콩이 부족합니다."));
+
+      return Promise.reject(new Error("커피 원두가 부족합니다."))
     }
 
     handleUpdate("prepareMachine");
+
     await API.prepareMachine();
+
     return closure;
   }
 
   function getCoffee() {
-    if (state.coffee < COFFEE_PER_BREW)
-      return Promise.reject(new Error("브루잉 커피가 없습니다."));
-
+    if(state.coffee < COFFEE_PER_BREW){
+        return Promise.reject(new Error("브루잉 커피가 없습니다."))
+    }
     handleUpdate("getCoffee");
-    return COFFEE_PER_BREW;
+    return COFFEE_PER_BREW
   }
 
   function getState() {
