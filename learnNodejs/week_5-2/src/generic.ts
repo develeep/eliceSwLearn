@@ -1,4 +1,4 @@
-const add = <T>(a:T,b:T):T=>{
+const add = <T extends string | number | boolean>(a:T,b:T):T=>{
   if (typeof a==='boolean') {
     return a||b
   }
@@ -7,6 +7,5 @@ const add = <T>(a:T,b:T):T=>{
 console.log(add<number>(13, 15));
 console.log(add<string>("hell", "o"));
 console.log(add<boolean>(false, true));
-
 // error
 // console.log(add<number>(3, "5"));
