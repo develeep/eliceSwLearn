@@ -1,0 +1,12 @@
+{
+  "name": "week_5-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "ts-node src/test.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
