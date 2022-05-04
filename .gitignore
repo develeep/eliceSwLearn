@@ -1,3 +1,7 @@
 .pdf
-img
+img/
+db.json
+.vscode
+.DS_Store
 node_modules/
+강의자료/
