@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bookSchema = require('../models/book')
 
 router.get('/',(req,res)=>{
   res.render('post')
@@ -17,6 +18,58 @@ router.post('/',(req,res)=>{
   // 호출한 경로로 재 접근
   res.redirect('/expost')
 
+})
+
+router.get('/bookinfo/:id',(req,res)=>{
+  const authorname = req.params.id;
+  // Movie.find({ year: { $gte: 1980, $lte: 1989 } }, function(err, arr) {});
+  // bookSchema.findOne({auther:authorname},(err,result)=>{
+  //   return result?res.json(result):res.send('검색결과 없음')
+  // })
+  bookSchema.find({auther:authorname})
+  .then(result=>{
+    res.json(result);
+  }).catch(err=>{
+    console.error(err);
+  })
+})
+router.get('/del',(req,res)=>{
+  res.render('delete')
+})
+router.delete('/del/:id',(req,res)=>{
+  const bookname = req.params.id
+  bookSchema.findOneAndDelete({bookname:bookname})
+  .then(result=>{
+    res.json({redirect:'/expost'});
+  }).catch(err=>{
+    console.error(err);
+  })
+})
+router.post('/del/:id',(req,res)=>{
+  const bookname = req.params.id
+  bookSchema.findOneAndDelete({bookname:bookname})
+  .then(result=>{
+    res.json({redirect:'/expost'});
+  }).catch(err=>{
+    console.error(err);
+  })
+})
+
+router.post('/addbook',(req,res,next)=>{
+  const bookname = req.body.bookname;
+  const auther = req.body.auther;
+  const price = req.body.price;
+  const publish = req.body.publish;
+  // 웹 : 1대1 통신 => 1요청 1응답 통신 종료
+  let bookData = new bookSchema({
+    bookname: bookname,
+    auther : auther,
+    price : price,
+    publish: publish,
+  })
+
+  bookData.save();
+  res.redirect('/expost')
 })
 
 module.exports = router

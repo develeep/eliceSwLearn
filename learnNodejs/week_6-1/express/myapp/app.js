@@ -10,7 +10,8 @@ var testRouter = require('./routes/call');
 
 var app = express();
 const postRouter = require('./routes/post');
-const router = require('./routes/post');
+const dbconnect = require('./models/index')
+dbconnect();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,6 +27,7 @@ app.use('/users', usersRouter);
 app.use('/test',testRouter)
 // locallhost/3000/expost
 app.use('/expost',postRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
