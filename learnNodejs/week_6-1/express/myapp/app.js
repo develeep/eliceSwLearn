@@ -6,10 +6,11 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var testRouter = require('./routes/call')
+var testRouter = require('./routes/call');
 
 var app = express();
-
+const postRouter = require('./routes/post');
+const router = require('./routes/post');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -23,6 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test',testRouter)
+// locallhost/3000/expost
+app.use('/expost',postRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,5 +42,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
 
 module.exports = app;
