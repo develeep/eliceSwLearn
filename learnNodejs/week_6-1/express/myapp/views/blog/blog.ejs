@@ -8,5 +8,13 @@
 </head>
 <body>
   <h1>Blog 실습</h1>
+  <br><br>
+  <a href="/blog/write">글쓰기</a>
+  <br><br>
+  <% for(let i=0;i<content.length;i++) { %>
+    <a href='/blog/<%= content[i].no %>'><%= content[i].title %></a>
+    <br><br>
+  <% } %>
+
 </body>
 </html>

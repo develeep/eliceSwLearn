@@ -90,11 +90,24 @@ router.get('/users',(req,res)=>[
   res.render('user'
   )
 ])
-router.post('/users',async(req,res,next)=>{
-  const {userId,job} = req.body;
-  const user = new userSchema({
-    userId : userId,
-    job : job,
-  })
-})
+// 에러 핸들링
+
+router.post('/users', async (req, res, next) => {
+  try {
+      const userId = req.body.userId;
+      const job = req.body.job;
+      const user = new userSchema({
+          userId: userid,
+          job: job
+      });
+      const result = await user.save();
+      res.status(200).json({
+          result,
+          message: 'user saved'
+      });
+  } catch (error) {
+      console.log(error);
+      next(error);
+  }
+});
 module.exports = router

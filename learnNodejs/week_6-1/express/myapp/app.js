@@ -7,10 +7,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testRouter = require('./routes/call');
+const blogRouter = require('./routes/blog')
 
 var app = express();
 const postRouter = require('./routes/post');
 const dbconnect = require('./models/index')
+
+
 dbconnect();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,10 +30,9 @@ app.use('/users', usersRouter);
 app.use('/test',testRouter)
 // locallhost/3000/expost
 app.use('/expost',postRouter)
-app.use(cors({
-  origin: "*",
-  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
-}))
+app.use('/blog',blogRouter)
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
