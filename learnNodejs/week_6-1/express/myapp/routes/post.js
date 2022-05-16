@@ -3,22 +3,20 @@ const router = express.Router();
 // const bookSchema = require('../models/book')
 const controller = require('../controller/post')
 
-router.get('/',controller.mainPost)
-router.post('/',(req,res,next)=>{
-  const name = req.body.name;
-  const phone = req.body.phone;
-  const date = req.body.date;
-  // 웹 : 1대1 통신 => 1요청 1응답 통신 종료
-  // res.json({name:name,phone:phone,date:date});
-  next();
-})
+// router.post('/',(req,res,next)=>{
+//   const name = req.body.name;
+//   const phone = req.body.phone;
+//   const date = req.body.date;
+//   // 웹 : 1대1 통신 => 1요청 1응답 통신 종료
+//   // res.json({name:name,phone:phone,date:date});
+//   next();
+// })
 
-router.post('/',(req,res)=>{
-  // 호출한 경로로 재 접근
-  res.redirect('/expost')
+// router.post('/',(req,res)=>{
+//   // 호출한 경로로 재 접근
+//   res.redirect('/expost')
 
-})
-
+// })
 // router.get('/bookinfo/:id',(req,res)=>{
 //   const authorname = req.params.id;
 //   // Movie.find({ year: { $gte: 1980, $lte: 1989 } }, function(err, arr) {});
@@ -32,10 +30,11 @@ router.post('/',(req,res)=>{
 //     console.error(err);
 //   })
 // })
-router.get('/bookinfo/:id',controller.getbookinfo)
-router.get('/del',(req,res)=>{
-  res.render('delete')
-})
+
+// router.get('/del',(req,res)=>{
+//   res.render('delete')
+// })
+
 // router.delete('/del/:id',(req,res)=>{
 //   const bookname = req.params.id
 //   bookSchema.findOneAndDelete({bookname:bookname})
@@ -45,7 +44,7 @@ router.get('/del',(req,res)=>{
 //     console.error(err);
 //   })
 // })
-router.delete('/del/:id',controller.bookdeleteAll)
+
 // router.post('/del/:id',(req,res)=>{
 //   const bookname = req.params.id
 //   bookSchema.findOneAndDelete({bookname:bookname})
@@ -55,7 +54,7 @@ router.delete('/del/:id',controller.bookdeleteAll)
 //     console.error(err);
 //   })
 // })
-router.post('/del/:id',controller.bookdelete)
+
 // router.post('/addbook',(req,res,next)=>{
 //   const bookname = req.body.bookname;
 //   const auther = req.body.auther;
@@ -72,5 +71,14 @@ router.post('/del/:id',controller.bookdelete)
 //   bookData.save();
 //   res.redirect('/expost')
 // })
+
+router.get('/',controller.mainPost)
+router.post('/',controller.mainPostnext)
+router.post('/',controller.mainPostre)
+router.get('/bookinfo/:id',controller.getbookinfo)
+router.get('/del',controller.bookdelRender)
+router.delete('/del/:id',controller.bookdeleteAll)
+router.post('/del/:id',controller.bookdelete)
 router.post('/addbook',controller.addbook)
+
 module.exports = router
