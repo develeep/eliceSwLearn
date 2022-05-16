@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-// const bookSchema = require('../models/book')
+const bookSchema = require('../models/book')
 const controller = require('../controller/post')
-
+const userSchema = require('../models/user')
 // router.post('/',(req,res,next)=>{
 //   const name = req.body.name;
 //   const phone = req.body.phone;
@@ -81,4 +81,20 @@ router.delete('/del/:id',controller.bookdeleteAll)
 router.post('/del/:id',controller.bookdelete)
 router.post('/addbook',controller.addbook)
 
+// bookinfo에 있는 정보를 다 가져오는 코드
+router.get('/getlist',async(req,res)=>{
+  const result = await bookSchema.find({}).exec();
+  return res.status(200).json(result)
+})
+router.get('/users',(req,res)=>[
+  res.render('user'
+  )
+])
+router.post('/users',async(req,res,next)=>{
+  const {userId,job} = req.body;
+  const user = new userSchema({
+    userId : userId,
+    job : job,
+  })
+})
 module.exports = router

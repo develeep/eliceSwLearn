@@ -27,7 +27,10 @@ app.use('/users', usersRouter);
 app.use('/test',testRouter)
 // locallhost/3000/expost
 app.use('/expost',postRouter)
-
+app.use(cors({
+  origin: "*",
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
+}))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
