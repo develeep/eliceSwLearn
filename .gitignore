@@ -57,3 +57,4 @@ firebaseadmin.js
 serviceAccountKey.json
 
 routes/testcode/
+learnNodejs/bogang/express-passport-practice/.env
