@@ -9,11 +9,13 @@ function App() {
     setItems([...items, input]);
     setInput('');
   };
-  const deleteHandler = (e) => {
-    e.preventDefault()
-    const newItems = items.filter((el,index)=>index!== e.target.key)
-    setItems(newItems)
-  }
+  const deleteHandler = (index) => {
+    setItems((current) => {
+      const newItems = [...current];
+      newItems.splice(index, 1);
+      return newItems;
+    });
+  };
 
   return (
     <>
@@ -34,8 +36,18 @@ function App() {
         </Button>
       </form>
       <ListGroup>
-        {items.map((item,index) => (
-          <div key={index}><ListGroup.Item >{item}</ListGroup.Item><Button key={index} onClick={deleteHandler}>Delete</Button></div>
+        {items.map((item, index) => (
+          <div key={index}>
+            <ListGroup.Item>{item}</ListGroup.Item>
+            <Button
+              key={index}
+              onClick={() => {
+                deleteHandler(index);
+              }}
+            >
+              Delete
+            </Button>
+          </div>
         ))}
       </ListGroup>
     </>
