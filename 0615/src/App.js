@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { Article } from './components/Article';
 import { Create } from './components/Create';
@@ -38,17 +38,22 @@ function Control(props) {
 }
 
 function App() {
-  const [nextId, setNextId] = useState(3);
   const [topics, setTopics] = useState([
     { id: 1, title: 'html', body: 'html is ...' },
     { id: 2, title: 'css', body: 'css is ...' },
   ]);
   const navigate = useNavigate();
-
+  useEffect(() => {
+    (async () => {
+      const req = await fetch('http://localhost:3333/topics');
+      const data = await req.json();
+      setTopics(data);
+    })();
+  }, []);
   return (
     <div>
       <HeaderStyled></HeaderStyled>
-      <Nav data={topics} ></Nav>
+      <Nav data={topics}></Nav>
       <Routes>
         <Route
           path="/"
@@ -56,7 +61,7 @@ function App() {
         />
         <Route
           path="create"
-          element={<Create onCreate={handleOnCreate()}></Create>}
+          element={<Create onCreate={(title,body)=>{handleOnCreate(title,body)}}></Create>}
         />
         <Route path="/read/:id" element={<Read topics={topics} />} />
       </Routes>
@@ -82,21 +87,22 @@ function App() {
     </div>
   );
 
-  function handleOnCreate() {
-    return (title, body) => {
-      const newTopic = { id: nextId, title, body };
-      setTopics((current) => {
-        const newTopics = [...current, newTopic];
-        return newTopics;
-      });
-      setNextId(nextId + 1);
+  async function handleOnCreate(title, body) {
+    const res = await fetch('http://localhost:3333/topics',{
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({title,body})
+    })
+    const data = await res.json();
+    navigate(`/read/${data.id}`);
     };
-  }
 
   function handleDelete(id) {
     setTopics((current) => {
       const newTopics = current.filter((e) => {
-        return e.id===id?false:true;
+        return e.id === id ? false : true;
       });
       return newTopics;
     });
