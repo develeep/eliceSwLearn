@@ -44,11 +44,7 @@ function App() {
   ]);
   const navigate = useNavigate();
   useEffect(() => {
-    (async () => {
-      const req = await fetch('http://localhost:3333/topics');
-      const data = await req.json();
-      setTopics(data);
-    })();
+    refreshTopics()
   }, []);
   return (
     <div>
@@ -61,7 +57,13 @@ function App() {
         />
         <Route
           path="create"
-          element={<Create onCreate={(title,body)=>{handleOnCreate(title,body)}}></Create>}
+          element={
+            <Create
+              onCreate={(title, body) => {
+                handleOnCreate(title, body);
+              }}
+            ></Create>
+          }
         />
         <Route path="/read/:id" element={<Read topics={topics} />} />
       </Routes>
@@ -87,25 +89,30 @@ function App() {
     </div>
   );
 
+  async function refreshTopics() {
+      const req = await fetch('http://localhost:3333/topics');
+      const data = await req.json();
+      setTopics(data);
+  }
+
   async function handleOnCreate(title, body) {
-    const res = await fetch('http://localhost:3333/topics',{
-      method:'POST',
+    const res = await fetch('http://localhost:3333/topics', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({title,body})
-    })
+      body: JSON.stringify({ title, body }),
+    });
     const data = await res.json();
     navigate(`/read/${data.id}`);
-    };
+    refreshTopics()
+  }
 
-  function handleDelete(id) {
-    setTopics((current) => {
-      const newTopics = current.filter((e) => {
-        return e.id === id ? false : true;
-      });
-      return newTopics;
-    });
+  async function handleDelete(id) {
+    const res = await fetch('http://localhost:3333/topics/'+id,{
+      method:'DELETE',
+    })
+    refreshTopics();
     navigate('/');
   }
 }
