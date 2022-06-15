@@ -1,10 +1,11 @@
 import { Button, ButtonGroup } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import { Article } from './components/Article';
 import { Create } from './components/Create';
 import { HeaderStyled } from './components/HeaderStyled';
 import { Nav } from './components/Nav';
+import { Read } from './components/Read';
 
 function App() {
   const [mode, setMode] = useState('WELCOME');
@@ -15,33 +16,21 @@ function App() {
     { id: 2, title: 'css', body: 'css is ...' },
   ]);
   
-  let content = null;
-  if (mode === 'WELCOME') {
-    content = <Article title="Welcome" body="Hello, WEB!"></Article>;
-  } else if (mode === 'READ') {
-    const topic = topics.filter((e) => e.id === id)[0];
-    console.log(topic);
-    content = <Article title={topic.title} body={topic.body}></Article>;
-  } else if (mode === 'CREATE') {
-    content = (
-      <Create
-        onCreate={(title, body) => {
-          const newTopic = { id: nextId, title, body };
-          setTopics((current) => {
-            const newTopics = [...current, newTopic];
-            return newTopics;
-          });
-          setNextId(nextId + 1);
-        }}
-      ></Create>
-    );
-  }
+
 
   return (
     <div>
       <HeaderStyled onSelect={handleHeader()}></HeaderStyled>
       <Nav data={topics} onSelect={HandleNav()}></Nav>
-      {content}
+      <Routes>
+        <Route path='/' element={<Article title="Welcome" body="Hello, WEB!"></Article>} />
+        <Route path='create' element={(
+          <Create
+            onCreate={handleOnCreate()}
+          ></Create>
+        )} />
+        <Route path='/read/:id' element={<Read topics={topics} />} />
+      </Routes>
       <br />
       <ButtonGroup color="secondary" aria-label="medium secondary button group">
         <Button
@@ -59,6 +48,19 @@ function App() {
       </Button>
     </div>
   );
+
+
+
+  function handleOnCreate() {
+    return (title, body) => {
+      const newTopic = { id: nextId, title, body };
+      setTopics((current) => {
+        const newTopics = [...current, newTopic];
+        return newTopics;
+      });
+      setNextId(nextId + 1);
+    };
+  }
 
   function HandleNav() {
     return (id) => {
