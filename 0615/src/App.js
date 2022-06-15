@@ -1,6 +1,6 @@
-import { Button, ButtonGroup } from '@mui/material';
+import { Button } from '@mui/material';
 import { useState } from 'react';
-import { Link, Route, Routes, useParams } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { Article } from './components/Article';
 import { Create } from './components/Create';
 import { HeaderStyled } from './components/HeaderStyled';
@@ -16,7 +16,7 @@ function Control(props) {
     contextUI = (
       <>
         <Button variant="outlined">update</Button>
-        <Button variant="outlined">delete</Button>
+        <Button variant="outlined" onClick={()=>{props.onDelete(id)}}>delete</Button>
       </>
     );
   }
@@ -37,6 +37,7 @@ function App() {
     { id: 1, title: 'html', body: 'html is ...' },
     { id: 2, title: 'css', body: 'css is ...' },
   ]);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -57,7 +58,13 @@ function App() {
 
       <Routes>
         {['/', '/read/:id', 'update/:id'].map((path) => {
-          return <Route key={path} path={path} element={<Control />} />;
+          return (
+            <Route
+              key={path}
+              path={path}
+              element={<Control onDelete={(id)=>{handleDelete(id)}} />}
+            />
+          );
         })}
       </Routes>
     </div>
@@ -80,17 +87,19 @@ function App() {
     };
   }
 
-  function handleDelete() {
-    return () => {
-      const newTopics = topics.filter((e) => {
+  function handleDelete(id) {
+    
+    setTopics((current)=>{
+      const newTopics = current.filter((e) => {
         if (e.id === id) {
           return false;
         } else {
           return true;
         }
       });
-      setTopics(newTopics);
-    };
+      return newTopics
+    });
+    navigate('/')
   }
 }
 
