@@ -5,9 +5,6 @@ export function Nav(props) {
     <li key={e.id}>
       <Link
         to={'/read/' + e.id}
-        onClick={(evt) => {
-          props.onSelect(e.id);
-        }}
       >
         {e.title}
       </Link>

@@ -16,7 +16,14 @@ function Control(props) {
     contextUI = (
       <>
         <Button variant="outlined">update</Button>
-        <Button variant="outlined" onClick={()=>{props.onDelete(id)}}>delete</Button>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            props.onDelete(id);
+          }}
+        >
+          delete
+        </Button>
       </>
     );
   }
@@ -31,7 +38,6 @@ function Control(props) {
 }
 
 function App() {
-  const [id, setId] = useState(null);
   const [nextId, setNextId] = useState(3);
   const [topics, setTopics] = useState([
     { id: 1, title: 'html', body: 'html is ...' },
@@ -42,7 +48,7 @@ function App() {
   return (
     <div>
       <HeaderStyled></HeaderStyled>
-      <Nav data={topics} onSelect={HandleNav()}></Nav>
+      <Nav data={topics} ></Nav>
       <Routes>
         <Route
           path="/"
@@ -62,7 +68,13 @@ function App() {
             <Route
               key={path}
               path={path}
-              element={<Control onDelete={(id)=>{handleDelete(id)}} />}
+              element={
+                <Control
+                  onDelete={(id) => {
+                    handleDelete(id);
+                  }}
+                />
+              }
             />
           );
         })}
@@ -81,25 +93,14 @@ function App() {
     };
   }
 
-  function HandleNav() {
-    return (id) => {
-      setId(id);
-    };
-  }
-
   function handleDelete(id) {
-    
-    setTopics((current)=>{
+    setTopics((current) => {
       const newTopics = current.filter((e) => {
-        if (e.id === id) {
-          return false;
-        } else {
-          return true;
-        }
+        return e.id===id?false:true;
       });
-      return newTopics
+      return newTopics;
     });
-    navigate('/')
+    navigate('/');
   }
 }
 
