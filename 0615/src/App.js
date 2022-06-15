@@ -1,41 +1,11 @@
-import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Article } from './components/Article';
 import { Create } from './components/Create';
 import { HeaderStyled } from './components/HeaderStyled';
 import { Nav } from './components/Nav';
 import { Read } from './components/Read';
-
-function Control(props) {
-  const params = useParams();
-  const id = parseInt(params.id);
-  console.log(id);
-  let contextUI = null;
-  if (id) {
-    contextUI = (
-      <>
-        <Button variant="outlined">update</Button>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            props.onDelete(id);
-          }}
-        >
-          delete
-        </Button>
-      </>
-    );
-  }
-  return (
-    <>
-      <Button component={Link} to="/create" variant="outlined">
-        create
-      </Button>
-      {contextUI}
-    </>
-  );
-}
+import { Control } from './components/Control';
 
 function App() {
   const [topics, setTopics] = useState([
