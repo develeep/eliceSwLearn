@@ -1,0 +1,24 @@
+{
+  "topics": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "body": "json-server is ..."
+    },
+    {
+      "id": 2,
+      "title": "React",
+      "body": "React is ..."
+    },
+    {
+      "title": "test1",
+      "body": "test11",
+      "id": 3
+    },
+    {
+      "title": "test2",
+      "body": "test23",
+      "id": 4
+    }
+  ]
+}
