@@ -38,7 +38,7 @@ function App() {
       >
         +
       </button>
-      <button
+      <button 
         onClick={() => {
           countDispatch('down');
         }}
