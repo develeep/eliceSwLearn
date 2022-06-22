@@ -1,5 +1,7 @@
-import {useDispatch, useSelector} from 'react-redux';
-import './styles.css'
+import { useDispatch, useSelector } from 'react-redux';
+import {up} from './countUpSlice';
+import {down} from './countDownSlice'
+import './styles.css';
 function Left1(props) {
   return (
     <div>
@@ -23,10 +25,21 @@ function Left3(props) {
       <h1>Left3</h1>
       <button
         onClick={() => {
-          dispatch({type:'UP',step:1})
+          // dispatch({type:'countUp/up', payload: 2});
+          dispatch(up(2))
+          // dispatch(up(2)); 
         }}
       >
         +
+      </button>
+      <button
+        onClick={() => {
+          // dispatch({type:'countUp/up', payload: 2});
+          dispatch(down(2))
+          // dispatch(up(2)); 
+        }}
+      >
+        -
       </button>
     </div>
   );
@@ -48,23 +61,24 @@ function Right2(props) {
   );
 }
 function Right3(props) {
-  const value = useSelector(state=>{
-    console.log(state)
-    return state.value;
-  })
+  const countUpValue = useSelector((state) => {
+    return state.countUp.value;
+  });
+  const countDownValue = useSelector((state) => {
+    return state.countDown.value;
+  });
   return (
     <div>
       <h1>Right3</h1>
-      {value}
+      {countUpValue}|{countDownValue}
     </div>
   );
 }
 export default function App() {
-
   return (
     <div id="app">
       <h1>Root</h1>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
         <Left1></Left1>
         <Right1></Right1>
       </div>
