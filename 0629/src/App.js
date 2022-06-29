@@ -1,62 +1,102 @@
-import { useEffect, useState } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { Create } from './Create';
+import { Header } from './Header.1';
+import { Nav } from './Nav';
+import { Read } from './Read';
+import { Update } from './Update';
 
-function Header() {
-  return <header>
-    <h1>
-      <Link to="/">WEB</Link>
-    </h1>
-  </header>;
+function Welcome() {
+  return (
+    <article>
+      <h2>Welcome</h2>
+      Hello, WEB
+    </article>
+  );
 }
 
-
-function Nav({topics}) {
-  return <nav>
-    <ol>
-      {
-        topics.map(topic=>{
-          return (
-            <li key={topic.id}><Link to={`/read/${topic.id}`}>{topic.title}</Link></li>
-          )
-        })
-      }
-    </ol>
-  </nav>
-}
-
-function Welcome(){
-  return <article>
-    <h2>Welcome</h2>
-    Hello, WEB
-  </article>
-}
-
-function Read() {
+function Control() {
   const params = useParams();
-  const id = Number(params.id)
-  return <article>
-    <h2>Read</h2>
-    Hello, Read
-  </article>
+  const id = params.id;
+  return (
+    <ul>
+      <li>
+        <Link to="/create">create</Link>
+      </li>
+      {id && (
+        <>
+          <li>
+            <Link to={`/update/${id}`}>update</Link>
+          </li>
+          <li>
+            <Link to={`/delete/${id}`}>delete</Link>
+          </li>
+        </>
+      )}
+    </ul>
+  );
 }
 
 function App() {
-  const [topics,setTopics] = useState([])
-  async function getTopics(){
-    const res = await fetch('/topics')
+  const navigate = useNavigate();
+  const [topics, setTopics] = useState([]);
+  async function getTopics() {
+    const res = await fetch('/topics');
     const data = await res.json();
-    setTopics(_data=>data)
+    setTopics((_data) => data);
   }
-  useEffect(()=>{
+  async function createHandler(title, body) {
+    const data = { title, body };
+    const res = await fetch('/topics', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await res.json();
     getTopics();
-  },[])
+    navigate(`/read/${result.id}`);
+  }
+
+  async function updateHandler(title, body, id) {
+    const data = { title, body };
+    const res = await fetch('/topics/'+id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await res.json();
+    getTopics();
+    navigate(`/read/${result.id}`);
+  }
+  async function deleteHandler(id) {}
+
+  useEffect(() => {
+    getTopics();
+  }, []);
   return (
     <div className="App">
-      <Header></Header>      
+      <Header></Header>
       <Nav topics={topics}></Nav>
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/read/:id" element={<Read />} />
+        <Route path="/create" element={<Create onCreate={createHandler} />} />
+        <Route
+          path="/update/:id"
+          element={<Update onUpdate={updateHandler} />}
+        />
+        <Route
+          path="/delete/:id"
+          // element={<Delete onDelete={deleteHandler} />}
+        />
+      </Routes>
+      <Routes>
+        <Route path="*" element={<Control />} />
+        <Route path="/read/:id" element={<Control />} />
       </Routes>
     </div>
   );
