@@ -15,9 +15,12 @@ function Welcome() {
   );
 }
 
-function Control() {
+function Control({ onDelete }) {
   const params = useParams();
   const id = params.id;
+  function clickHandler() {
+    onDelete(id);
+  }
   return (
     <ul>
       <li>
@@ -29,7 +32,7 @@ function Control() {
             <Link to={`/update/${id}`}>update</Link>
           </li>
           <li>
-            <Link to={`/delete/${id}`}>delete</Link>
+            <button onClick={clickHandler}>delete</button>
           </li>
         </>
       )}
@@ -61,7 +64,7 @@ function App() {
 
   async function updateHandler(title, body, id) {
     const data = { title, body };
-    const res = await fetch('/topics/'+id, {
+    const res = await fetch('/topics/' + id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +75,13 @@ function App() {
     getTopics();
     navigate(`/read/${result.id}`);
   }
-  async function deleteHandler(id) {}
+  async function deleteHandler(id) {
+    const res = await fetch('/topics/' + id, {
+      method: 'DELETE',
+    });
+    getTopics();
+    navigate('/');
+  }
 
   useEffect(() => {
     getTopics();
@@ -89,14 +98,13 @@ function App() {
           path="/update/:id"
           element={<Update onUpdate={updateHandler} />}
         />
-        <Route
-          path="/delete/:id"
-          // element={<Delete onDelete={deleteHandler} />}
-        />
       </Routes>
       <Routes>
         <Route path="*" element={<Control />} />
-        <Route path="/read/:id" element={<Control />} />
+        <Route
+          path="/read/:id"
+          element={<Control onDelete={deleteHandler} />}
+        />
       </Routes>
     </div>
   );
