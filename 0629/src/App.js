@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 
 function Header() {
@@ -9,10 +10,16 @@ function Header() {
 }
 
 
-function Nav() {
+function Nav({topics}) {
   return <nav>
     <ol>
-      <li><Link to="/read/1">html</Link></li>
+      {
+        topics.map(topic=>{
+          return (
+            <li key={topic.id}><Link to={`/read/${topic.id}`}>{topic.title}</Link></li>
+          )
+        })
+      }
     </ol>
   </nav>
 }
@@ -32,10 +39,19 @@ function Read() {
 }
 
 function App() {
+  const [topics,setTopics] = useState([])
+  async function getTopics(){
+    const res = await fetch('http://localhost:3333/topics')
+    const data = await res.json();
+    setTopics(_data=>data)
+  }
+  useEffect(()=>{
+    getTopics();
+  },[])
   return (
     <div className="App">
       <Header></Header>      
-      <Nav></Nav>
+      <Nav topics={topics}></Nav>
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/read/:id" element={<Read />} />
