@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useParams } from "react-router-dom";
 
 function Header() {
   return <header>
@@ -32,6 +32,8 @@ function Welcome(){
 }
 
 function Read() {
+  const params = useParams();
+  const id = Number(params.id)
   return <article>
     <h2>Read</h2>
     Hello, Read
@@ -41,7 +43,7 @@ function Read() {
 function App() {
   const [topics,setTopics] = useState([])
   async function getTopics(){
-    const res = await fetch('http://localhost:3333/topics')
+    const res = await fetch('/topics')
     const data = await res.json();
     setTopics(_data=>data)
   }
